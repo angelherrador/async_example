@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String label ="No data";
+  String label = "No data";
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +40,34 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Ubicaciones'),
+            ),
+            ListTile(
+              title: const Text('Barra'),
+              onTap: () {
+                // ..
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Sala'),
+              onTap: () {
+                //..
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -50,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           label = "Requesting...";
           setState(() {});
           var future = http.get(Uri.parse("http://numbersapi.com/random/math"));
@@ -60,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           future.then((response) {
             label = response.body;
             setState(() {});
-          }).catchError((error){
+          }).catchError((error) {
             label = "Error: ${error.toString()}";
             setState(() {});
           });
